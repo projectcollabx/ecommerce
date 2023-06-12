@@ -71,7 +71,7 @@ export default function Header() {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="/Product"
+                to="/Products"
               >
                 Products
               </Link>

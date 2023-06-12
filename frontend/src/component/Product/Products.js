@@ -10,6 +10,7 @@ import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
 import MetaData from "../layout/MetaData";
 
+// Array of available categories
 const categories = [
   "Laptop",
   "Footwear",
@@ -20,17 +21,26 @@ const categories = [
   "SmartPhones",
 ];
 
+// Array of available sub categories
+const subcategories = [
+  "Green",
+  "blue",
+  "red",
+];
 const Products = ({ match }) => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 25000]);
-  const [category, setCategory] = useState("");
+  // State variables
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [price, setPrice] = useState([0, 25000]); // Price range
+  const [category, setCategory] = useState(""); // Selected category
+  const [subcategory, setSubcategory] = useState("");
 
-  const [ratings, setRatings] = useState(0);
+  const [ratings, setRatings] = useState(0); // Selected rating
 
+  // Extracting data from the Redux store using useSelector
   const {
     products,
     loading,
@@ -40,16 +50,19 @@ const Products = ({ match }) => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const keyword = match.params.keyword;
+  const keyword = match.params.keyword; // Extracting keyword from the URL
 
+  // Function to handle page number change
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
 
+  // Function to handle price range change
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
-  let count = filteredProductsCount;
+
+  let count = filteredProductsCount; // Number of filtered products
 
   useEffect(() => {
     if (error) {
@@ -57,13 +70,16 @@ const Products = ({ match }) => {
       dispatch(clearErrors());
     }
 
-    dispatch(getProduct(keyword, currentPage, price, category, ratings));
-  }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
+    // Dispatching the getProduct action with the specified parameters
+    // dispatch(getProduct(keyword, currentPage, price, category, ratings));
+    dispatch(getProduct(keyword, currentPage, price, category, subcategory, ratings));
+
+  }, [dispatch, keyword, currentPage, price, category, subcategory, ratings, alert, error]);
 
   return (
     <Fragment>
       {loading ? (
-        <Loader />
+        <Loader /> // Displaying a Loader component while loading
       ) : (
         <Fragment>
           <MetaData title="PRODUCTS -- ECOMMERCE" />
@@ -72,7 +88,7 @@ const Products = ({ match }) => {
           <div className="products">
             {products &&
               products.map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard key={product._id} product={product} /> // Displaying ProductCard component for each product
               ))}
           </div>
 
@@ -87,7 +103,7 @@ const Products = ({ match }) => {
               max={25000}
             />
 
-            <Typography>Categories</Typography>
+            {/* <Typography>Categories</Typography>
             <ul className="categoryBox">
               {categories.map((category) => (
                 <li
@@ -98,7 +114,72 @@ const Products = ({ match }) => {
                   {category}
                 </li>
               ))}
-            </ul>
+
+              
+            </ul> */}
+
+            {/* <Typography>Categories</Typography>
+            <ul className="categoryBox">
+              {categories.map((category) => (
+                <li
+                  className={`category-link ${
+                    category.name === category ? "active" : ""
+                  }`}
+                  key={category.name}
+                  onClick={() => setCategory(category.name)}
+                >
+                  {category.name}
+                  {category.name === category && (
+                    <ul className="subcategoryBox">
+                      {category.subcategories.map((subcategory) => (
+                        <li
+                          className={`subcategory-link ${
+                            subcategory === subcategory ? "active" : ""
+                          }`}
+                          key={subcategory}
+                          onClick={() => setSubcategory(subcategory)}
+                        >
+                          {subcategory}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul> */}
+            
+            <Typography>Categories</Typography>
+<ul className="categoryBox">
+  {categories.map((category) => (
+    <li
+      className={`category-link ${category.name === category ? "active" : ""}`}
+      key={category.name}
+      onClick={() => setCategory(category.name)}
+    >
+      {category.name}
+    </li>
+  ))}
+</ul>
+
+<Typography>Subcategories</Typography>
+<ul className="subcategoryBox">
+  {categories.map((category) => (
+    category.name === category && (
+      subcategories.map((subcategory) => (
+        <li
+          className={`subcategory-link ${
+            subcategory === subcategory ? "active" : ""
+          }`}
+          key={subcategory}
+          onClick={() => setSubcategory(subcategory)}
+        >
+          {subcategory}
+        </li>
+      ))
+    )
+  ))}
+</ul>
+
 
             <fieldset>
               <Typography component="legend">Ratings Above</Typography>

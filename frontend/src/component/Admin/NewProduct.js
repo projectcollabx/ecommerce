@@ -23,7 +23,8 @@ const NewProduct = ({ history }) => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
+  const [subcategory, setSubcategory] = useState("");
+  const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -36,7 +37,11 @@ const NewProduct = ({ history }) => {
     "Camera",
     "SmartPhones",
   ];
-
+  const subcategories = [
+    "Green",
+    "blue",
+    "red",
+  ];
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -59,12 +64,15 @@ const NewProduct = ({ history }) => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.set("subcategory", subcategory);
+    myForm.set("stock", stock);
 
     images.forEach((image) => {
       myForm.append("images", image);
     });
     dispatch(createProduct(myForm));
+    // dispatch(createProduct(myForm, subcategory));
+
   };
 
   const createProductImagesChange = (e) => {
@@ -133,16 +141,30 @@ const NewProduct = ({ history }) => {
             </div>
 
             <div>
-              <AccountTreeIcon />
-              <select onChange={(e) => setCategory(e.target.value)}>
-                <option value="">Choose Category</option>
-                {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
-                  </option>
-                ))}
-              </select>
-            </div>
+  <AccountTreeIcon />
+  <select onChange={(e) => setCategory(e.target.value)}>
+    <option value="">Choose Category</option>
+    {categories.map((category) => (
+      <option key={category} value={category}>
+        {category}
+      </option>
+    ))}
+  </select>
+</div>
+
+{/* Adding subcategories */}
+<div>
+  <AccountTreeIcon />
+  <select onChange={(e) => setSubcategory(e.target.value)}>
+    <option value="">Choose Sub Category</option>
+    {subcategories.map((subcategory) => (
+      <option key={subcategory} value={subcategory}>
+        {subcategory}
+      </option>
+    ))}
+  </select>
+</div>
+
 
             <div>
               <StorageIcon />
