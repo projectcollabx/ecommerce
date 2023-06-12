@@ -35,6 +35,7 @@ const productSchema = mongoose.Schema({
     type: String,
     required: [true, "Please Enter Product Category"],
   },
+  // added subcategory
   subcategory: {
     type: String,
     required: [true, "Please Enter Product Subcategory"],
