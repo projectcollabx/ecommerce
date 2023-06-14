@@ -39,23 +39,23 @@ const Sidebar = () => {
           </TreeItem>
         </TreeView>
       </Link>
-      <Link to="/admin/orders">
+      {/* <Link to="/admin/orders">
         <p>
           <ListAltIcon />
           Orders
         </p>
-      </Link>
+      </Link> */}
       <Link to="/admin/users">
         <p>
           <PeopleIcon /> Users
         </p>
       </Link>
-      <Link to="/admin/reviews">
+      {/* <Link to="/admin/reviews">
         <p>
           <RateReviewIcon />
           Reviews
         </p>
-      </Link>
+      </Link> */}
     </div>
   );
 };

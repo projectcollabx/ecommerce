@@ -76,6 +76,9 @@
 .categoryBox {
   padding: 0%;
 }
+.subcategoryBox {
+  padding: 0%;
+}
 
 .category-link {
   list-style: none;

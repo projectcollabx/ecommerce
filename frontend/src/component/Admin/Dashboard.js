@@ -13,14 +13,14 @@ import MetaData from "../layout/MetaData";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
+  // Extracting data from the Redux store
   const { products } = useSelector((state) => state.products);
-
   const { orders } = useSelector((state) => state.allOrders);
-
   const { users } = useSelector((state) => state.allUsers);
 
   let outOfStock = 0;
 
+  // Counting the number of out-of-stock products
   products &&
     products.forEach((item) => {
       if (item.Stock === 0) {
@@ -29,17 +29,19 @@ const Dashboard = () => {
     });
 
   useEffect(() => {
-    dispatch(getAdminProduct());
-    dispatch(getAllOrders());
-    dispatch(getAllUsers());
+    // Fetching data from the server using Redux actions
+    dispatch(getAdminProduct()); // Fetching products
+    dispatch(getAllOrders()); // Fetching orders
+    dispatch(getAllUsers()); // Fetching users
   }, [dispatch]);
 
   let totalAmount = 0;
   orders &&
     orders.forEach((item) => {
-      totalAmount += item.totalPrice;
+      totalAmount += item.totalPrice; // Calculating the total amount earned from orders
     });
 
+  // Line chart data
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
     datasets: [
@@ -52,6 +54,7 @@ const Dashboard = () => {
     ],
   };
 
+  // Doughnut chart data
   const doughnutState = {
     labels: ["Out of Stock", "InStock"],
     datasets: [
@@ -82,10 +85,10 @@ const Dashboard = () => {
               <p>Product</p>
               <p>{products && products.length}</p>
             </Link>
-            <Link to="/admin/orders">
+            {/* <Link to="/admin/orders">
               <p>Orders</p>
               <p>{orders && orders.length}</p>
-            </Link>
+            </Link> */}
             <Link to="/admin/users">
               <p>Users</p>
               <p>{users && users.length}</p>
@@ -93,13 +96,13 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="lineChart">
-          <Line data={lineState} />
+        {/* <div className="lineChart">
+          <Line data={lineState} /> // Rendering the Line chart
         </div>
 
         <div className="doughnutChart">
-          <Doughnut data={doughnutState} />
-        </div>
+          <Doughnut data={doughnutState} /> // Rendering the Doughnut chart
+        </div> */}
       </div>
     </div>
   );
