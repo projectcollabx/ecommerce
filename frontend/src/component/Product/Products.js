@@ -10,37 +10,47 @@ import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
 import MetaData from "../layout/MetaData";
 
-// Array of available categories
 const categories = [
-  "Laptop",
-  "Footwear",
-  "Bottom",
-  "Tops",
-  "Attire",
-  "Camera",
-  "SmartPhones",
+  {
+    name: "Laptop",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Footwear",
+    subcategories: ["nike", "puma", "addidas"],
+  },
+  {
+    name: "Bottom",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Tops",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Attire",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Camera",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "SmartPhones",
+    subcategories: ["samsung", "apple", "redmi"],
+  },
 ];
 
-// Array of available sub categories
-const subcategories = [
-  "Green",
-  "blue",
-  "red",
-];
 const Products = ({ match }) => {
   const dispatch = useDispatch();
-
   const alert = useAlert();
 
-  // State variables
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const [price, setPrice] = useState([0, 25000]); // Price range
-  const [category, setCategory] = useState(""); // Selected category
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
+  const [ratings, setRatings] = useState(0);
 
-  const [ratings, setRatings] = useState(0); // Selected rating
-
-  // Extracting data from the Redux store using useSelector
   const {
     products,
     loading,
@@ -50,19 +60,17 @@ const Products = ({ match }) => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const keyword = match.params.keyword; // Extracting keyword from the URL
+  const keyword = match.params.keyword;
 
-  // Function to handle page number change
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
+  const setCurrentPageNo = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
-  // Function to handle price range change
-  const priceHandler = (event, newPrice) => {
-    setPrice(newPrice);
-  };
+  // const priceHandler = (event, newPrice) => {
+  //   setPrice(newPrice);
+  // };
 
-  let count = filteredProductsCount; // Number of filtered products
+  let count = filteredProductsCount;
 
   useEffect(() => {
     if (error) {
@@ -70,16 +78,19 @@ const Products = ({ match }) => {
       dispatch(clearErrors());
     }
 
-    // Dispatching the getProduct action with the specified parameters
-    // dispatch(getProduct(keyword, currentPage, price, category, ratings));
     dispatch(getProduct(keyword, currentPage, price, category, subcategory, ratings));
 
   }, [dispatch, keyword, currentPage, price, category, subcategory, ratings, alert, error]);
 
+  const handleCategoryClick = (categoryName) => {
+    setCategory(categoryName);
+    setSubcategory(""); // Resetting the selected subcategory
+  };
+
   return (
     <Fragment>
       {loading ? (
-        <Loader /> // Displaying a Loader component while loading
+        <Loader />
       ) : (
         <Fragment>
           <MetaData title="PRODUCTS -- ECOMMERCE" />
@@ -88,12 +99,12 @@ const Products = ({ match }) => {
           <div className="products">
             {products &&
               products.map((product) => (
-                <ProductCard key={product._id} product={product} /> // Displaying ProductCard component for each product
+                <ProductCard key={product._id} product={product} />
               ))}
           </div>
 
           <div className="filterBox">
-            <Typography>Price</Typography>
+            {/* <Typography>Price</Typography>
             <Slider
               value={price}
               onChange={priceHandler}
@@ -101,91 +112,49 @@ const Products = ({ match }) => {
               aria-labelledby="range-slider"
               min={0}
               max={25000}
-            />
+            /> */}
 
-            {/* <Typography>Categories</Typography>
+            <Typography>Categories</Typography>
             <ul className="categoryBox">
-              {categories.map((category) => (
-                <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}
-                >
-                  {category}
-                </li>
-              ))}
-
-              
-            </ul> */}
-
-            {/* <Typography>Categories</Typography>
-            <ul className="categoryBox">
-              {categories.map((category) => (
+              {categories.map((categoryObj) => (
                 <li
                   className={`category-link ${
-                    category.name === category ? "active" : ""
+                    categoryObj.name === category ? "active" : ""
                   }`}
-                  key={category.name}
-                  onClick={() => setCategory(category.name)}
+                  key={categoryObj.name}
+                  onClick={() => handleCategoryClick(categoryObj.name)}
                 >
-                  {category.name}
-                  {category.name === category && (
-                    <ul className="subcategoryBox">
-                      {category.subcategories.map((subcategory) => (
-                        <li
-                          className={`subcategory-link ${
-                            subcategory === subcategory ? "active" : ""
-                          }`}
-                          key={subcategory}
-                          onClick={() => setSubcategory(subcategory)}
-                        >
-                          {subcategory}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  {categoryObj.name}
                 </li>
               ))}
-            </ul> */}
-            
-            <Typography>Categories</Typography>
-<ul className="categoryBox">
-  {categories.map((category) => (
-    <li
-      className={`category-link ${category.name === category ? "active" : ""}`}
-      key={category.name}
-      onClick={() => setCategory(category.name)}
-    >
-      {category.name}
-    </li>
-  ))}
-</ul>
+            </ul>
 
-<Typography>Subcategories</Typography>
-<ul className="subcategoryBox">
-  {categories.map((category) => (
-    category.name === category && (
-      subcategories.map((subcategory) => (
-        <li
-          className={`subcategory-link ${
-            subcategory === subcategory ? "active" : ""
-          }`}
-          key={subcategory}
-          onClick={() => setSubcategory(subcategory)}
-        >
-          {subcategory}
-        </li>
-      ))
-    )
-  ))}
-</ul>
+            {category && (
+              <Fragment>
+                <Typography>Subcategories</Typography>
+                <ul className="subcategoryBox">
+                  {categories
+                    .find((categoryObj) => categoryObj.name === category)
+                    .subcategories.map((subcategoryName) => (
+                      <li
+                        className={`subcategory-link ${
+                          subcategoryName === subcategory ? "active" : ""
+                        }`}
+                        key={subcategoryName}
+                        onClick={() => setSubcategory(subcategoryName)}
+                      >
+                        {subcategoryName}
+                      </li>
+                    ))}
+                </ul>
+              </Fragment>
+            )}
 
-
-            <fieldset>
+            {/* <fieldset>
               <Typography component="legend">Ratings Above</Typography>
               <Slider
                 value={ratings}
-                onChange={(e, newRating) => {
+                onChange={(event, newRating) => {
                   setRatings(newRating);
                 }}
                 aria-labelledby="continuous-slider"
@@ -193,7 +162,7 @@ const Products = ({ match }) => {
                 min={0}
                 max={5}
               />
-            </fieldset>
+            </fieldset> */}
           </div>
           {resultPerPage < count && (
             <div className="paginationBox">

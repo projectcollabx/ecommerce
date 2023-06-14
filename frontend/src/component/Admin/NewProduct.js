@@ -29,19 +29,36 @@ const NewProduct = ({ history }) => {
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
+    {
+      name: "Laptop",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Footwear",
+      subcategories: ["nike", "puma", "addidas"],
+    },
+    {
+      name: "Bottom",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Tops",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Attire",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Camera",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "SmartPhones",
+      subcategories: ["samsung", "apple", "redmi"],
+    },
   ];
-  const subcategories = [
-    "Green",
-    "blue",
-    "red",
-  ];
+
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -141,30 +158,31 @@ const NewProduct = ({ history }) => {
             </div>
 
             <div>
-  <AccountTreeIcon />
-  <select onChange={(e) => setCategory(e.target.value)}>
-    <option value="">Choose Category</option>
-    {categories.map((category) => (
-      <option key={category} value={category}>
-        {category}
-      </option>
-    ))}
-  </select>
-</div>
+              <AccountTreeIcon />
+              <select onChange={(e) => setCategory(e.target.value)}>
+                <option value="">Choose Category</option>
+                {categories.map((categoryObj) => (
+                  <option key={categoryObj.name} value={categoryObj.name}>
+                    {categoryObj.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-{/* Adding subcategories */}
-<div>
-  <AccountTreeIcon />
-  <select onChange={(e) => setSubcategory(e.target.value)}>
-    <option value="">Choose Sub Category</option>
-    {subcategories.map((subcategory) => (
-      <option key={subcategory} value={subcategory}>
-        {subcategory}
-      </option>
-    ))}
-  </select>
-</div>
-
+            {/* Adding subcategories */}
+            <div>
+              <AccountTreeIcon />
+              <select onChange={(e) => setSubcategory(e.target.value)}>
+                <option value="">Choose Sub Category</option>
+                {categories
+                  .find((categoryObj) => categoryObj.name === category)
+                  ?.subcategories.map((subcategory) => (
+                    <option key={subcategory} value={subcategory}>
+                      {subcategory}
+                    </option>
+                  ))}
+              </select>
+            </div>
 
             <div>
               <StorageIcon />
