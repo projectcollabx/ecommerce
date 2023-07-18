@@ -11,24 +11,44 @@ import Typography from "@material-ui/core/Typography";
 import MetaData from "../layout/MetaData";
 
 const categories = [
-  "Laptop",
-  "Footwear",
-  "Bottom",
-  "Tops",
-  "Attire",
-  "Camera",
-  "SmartPhones",
+  {
+    name: "Laptop",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Footwear",
+    subcategories: ["nike", "puma", "addidas"],
+  },
+  {
+    name: "Bottom",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Tops",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Attire",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "Camera",
+    subcategories: ["Green", "Blue", "Red"],
+  },
+  {
+    name: "SmartPhones",
+    subcategories: ["samsung", "apple", "redmi"],
+  },
 ];
 
 const Products = ({ match }) => {
   const dispatch = useDispatch();
-
   const alert = useAlert();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
   const [category, setCategory] = useState("");
-
+  const [subcategory, setSubcategory] = useState("");
   const [ratings, setRatings] = useState(0);
 
   const {
@@ -42,13 +62,14 @@ const Products = ({ match }) => {
 
   const keyword = match.params.keyword;
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
+  const setCurrentPageNo = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
-  const priceHandler = (event, newPrice) => {
-    setPrice(newPrice);
-  };
+  // const priceHandler = (event, newPrice) => {
+  //   setPrice(newPrice);
+  // };
+
   let count = filteredProductsCount;
 
   useEffect(() => {
@@ -57,8 +78,14 @@ const Products = ({ match }) => {
       dispatch(clearErrors());
     }
 
-    dispatch(getProduct(keyword, currentPage, price, category, ratings));
-  }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
+    dispatch(getProduct(keyword, currentPage, price, category, subcategory, ratings));
+
+  }, [dispatch, keyword, currentPage, price, category, subcategory, ratings, alert, error]);
+
+  const handleCategoryClick = (categoryName) => {
+    setCategory(categoryName);
+    setSubcategory(""); // Resetting the selected subcategory
+  };
 
   return (
     <Fragment>
@@ -77,7 +104,7 @@ const Products = ({ match }) => {
           </div>
 
           <div className="filterBox">
-            <Typography>Price</Typography>
+            {/* <Typography>Price</Typography>
             <Slider
               value={price}
               onChange={priceHandler}
@@ -85,26 +112,49 @@ const Products = ({ match }) => {
               aria-labelledby="range-slider"
               min={0}
               max={25000}
-            />
+            /> */}
 
             <Typography>Categories</Typography>
             <ul className="categoryBox">
-              {categories.map((category) => (
+              {categories.map((categoryObj) => (
                 <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}
+                  className={`category-link ${
+                    categoryObj.name === category ? "active" : ""
+                  }`}
+                  key={categoryObj.name}
+                  onClick={() => handleCategoryClick(categoryObj.name)}
                 >
-                  {category}
+                  {categoryObj.name}
                 </li>
               ))}
             </ul>
 
-            <fieldset>
+            {category && (
+              <Fragment>
+                <Typography>Subcategories</Typography>
+                <ul className="subcategoryBox">
+                  {categories
+                    .find((categoryObj) => categoryObj.name === category)
+                    .subcategories.map((subcategoryName) => (
+                      <li
+                        className={`subcategory-link ${
+                          subcategoryName === subcategory ? "active" : ""
+                        }`}
+                        key={subcategoryName}
+                        onClick={() => setSubcategory(subcategoryName)}
+                      >
+                        {subcategoryName}
+                      </li>
+                    ))}
+                </ul>
+              </Fragment>
+            )}
+
+            {/* <fieldset>
               <Typography component="legend">Ratings Above</Typography>
               <Slider
                 value={ratings}
-                onChange={(e, newRating) => {
+                onChange={(event, newRating) => {
                   setRatings(newRating);
                 }}
                 aria-labelledby="continuous-slider"
@@ -112,7 +162,7 @@ const Products = ({ match }) => {
                 min={0}
                 max={5}
               />
-            </fieldset>
+            </fieldset> */}
           </div>
           {resultPerPage < count && (
             <div className="paginationBox">

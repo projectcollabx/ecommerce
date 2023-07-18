@@ -23,18 +23,40 @@ const NewProduct = ({ history }) => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
+  const [subcategory, setSubcategory] = useState("");
+  const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
+    {
+      name: "Laptop",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Footwear",
+      subcategories: ["nike", "puma", "addidas"],
+    },
+    {
+      name: "Bottom",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Tops",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Attire",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "Camera",
+      subcategories: ["Green", "Blue", "Red"],
+    },
+    {
+      name: "SmartPhones",
+      subcategories: ["samsung", "apple", "redmi"],
+    },
   ];
 
   useEffect(() => {
@@ -59,12 +81,15 @@ const NewProduct = ({ history }) => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.set("subcategory", subcategory);
+    myForm.set("stock", stock);
 
     images.forEach((image) => {
       myForm.append("images", image);
     });
     dispatch(createProduct(myForm));
+    // dispatch(createProduct(myForm, subcategory));
+
   };
 
   const createProductImagesChange = (e) => {
@@ -136,11 +161,26 @@ const NewProduct = ({ history }) => {
               <AccountTreeIcon />
               <select onChange={(e) => setCategory(e.target.value)}>
                 <option value="">Choose Category</option>
-                {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
+                {categories.map((categoryObj) => (
+                  <option key={categoryObj.name} value={categoryObj.name}>
+                    {categoryObj.name}
                   </option>
                 ))}
+              </select>
+            </div>
+
+            {/* Adding subcategories */}
+            <div>
+              <AccountTreeIcon />
+              <select onChange={(e) => setSubcategory(e.target.value)}>
+                <option value="">Choose Sub Category</option>
+                {categories
+                  .find((categoryObj) => categoryObj.name === category)
+                  ?.subcategories.map((subcategory) => (
+                    <option key={subcategory} value={subcategory}>
+                      {subcategory}
+                    </option>
+                  ))}
               </select>
             </div>
 
