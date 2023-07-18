@@ -1,0 +1,71 @@
+.elementor-section {
+    background-color: #f8f8f8;
+    padding: 40px;
+  }
+  
+  .elementor-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .elementor-column {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+  }
+  
+  .elementor-widget {
+    margin-bottom: 20px;
+  }
+  
+  .elementor-divider-separator {
+    border-top: 1px solid #ccc;
+  }
+  
+  .elementor-heading-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .elementor-icon-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .elementor-icon-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .elementor-icon-list-icon {
+    margin-right: 10px;
+  }
+  
+  .elementor-icon-list-text {
+    font-size: 16px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .elementor-heading-title {
+    font-size: 20px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .elementor-widget img {
+    max-width: 33rem;
+    height: auto;
+    display: block; /* Ensure the image takes up full width */
+    margin-left: auto; /* Move the image to the right side */
+    margin-right: 0; /* Remove default right margin */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .elementor-widget img:hover {
+    transform: translateY(-3px); /*Add vertical translation to create a raised effect
+    box-shadow: 0 8px 16px rgba(8, 3, 4, 0.6); /* Change box shadow on hover */
+  }

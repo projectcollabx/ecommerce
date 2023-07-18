@@ -2,31 +2,57 @@ import React from "react";
 import playStore from "../../../images/playstore.png";
 import appStore from "../../../images/Appstore.png";
 import "./Footer.css";
+import logo from "../../../images/a&s_logo.png";
 
 const Footer = () => {
   return (
-    <footer id="footer">
-      <div className="leftFooter">
-        <h4>DOWNLOAD OUR APP</h4>
-        <p>Download App for Android and IOS mobile phone</p>
-        <img src={playStore} alt="playstore" />
-        <img src={appStore} alt="Appstore" />
-      </div>
+    <>
+      <footer id="footer">
+        <div className = 'upperFooter'>
+          <div className="leftFooter">
+            <img src={logo} alt="Logo" className="logo" />
+            {/* <p>A & S Ventures</p> */}
 
-      <div className="midFooter">
-        <h1>ECOMMERCE.</h1>
-        <p>High Quality is our first priority</p>
+            <div className="midFooter"></div>
+          </div>
 
-        <p>Copyrights 2021 &copy; MeAbhiSingh</p>
-      </div>
+          <div className="rightFooter">
+            <h4>Our Company</h4>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+          </div>
 
-      <div className="rightFooter">
-        <h4>Follow Us</h4>
-        <a href="http://instagram.com/meabhisingh">Instagram</a>
-        <a href="http://youtube.com/6packprogramemr">Youtube</a>
-        <a href="http://instagram.com/meabhisingh">Facebook</a>
-      </div>
-    </footer>
+          <div className="rightFooter">
+            <h4>Our Work</h4>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+          </div>
+
+          <div className="rightFooter">
+            <h4>Our Products</h4>
+            <a href="https://www.amazon.in/stores/page/2FFDBFD8-3C56-4071-9E9F-4E022833AC59">
+              Amazon
+            </a>
+            <a href="https://www.meesho.com/ASVENTURES?_ms=1">Meesho</a>
+            <a href="https://www.indiamart.com/as-ventures-haridwar/">
+              IndiaMart
+            </a>
+          </div>
+          <div className="rightFooter">
+            <h4>Contact Details</h4>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+            <a href="#">Lorem Ipsum</a>
+          </div>
+        </div>
+
+        <div className="footerCopyright">
+          <p>Copyright © 2023 A&S Ventures</p>
+        </div>
+      </footer>
+    </>
   );
 };
 

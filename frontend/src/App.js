@@ -90,7 +90,7 @@ function App() {
         <Route exact path="/products" component={Products} />
         <Route path="/products/:keyword" component={Products} />
 
-        <Route exact path="/search" component={Search} />
+        {/* <Route exact path="/search" component={Search} /> */}
 
         <Route exact path="/contact" component={Contact} />
 

@@ -9,6 +9,8 @@ import Slider from "@material-ui/core/Slider";
 import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
 import MetaData from "../layout/MetaData";
+import Search from '../Product/Search.js';
+
 
 const categories = [
   {
@@ -94,7 +96,7 @@ const Products = ({ match }) => {
       ) : (
         <Fragment>
           <MetaData title="PRODUCTS -- ECOMMERCE" />
-          <h2 className="productsHeading">Products</h2>
+          <h1 className="aboutImage"><Search/></h1>
 
           <div className="products">
             {products &&
@@ -149,6 +151,7 @@ const Products = ({ match }) => {
                 </ul>
               </Fragment>
             )}
+         
 
             {/* <fieldset>
               <Typography component="legend">Ratings Above</Typography>

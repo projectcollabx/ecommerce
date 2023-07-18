@@ -31,7 +31,7 @@ const NewProduct = ({ history }) => {
   const categories = [
     {
       name: "Laptop",
-      subcategories: ["Green", "Blue", "Red"],
+      subcategories: ["mac", "lenovo", "asus"],
     },
     {
       name: "Footwear",
