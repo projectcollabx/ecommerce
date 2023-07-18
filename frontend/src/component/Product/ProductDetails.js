@@ -126,14 +126,14 @@ const ProductDetails = ({ match }) => {
                 <h2>{product.name}</h2>
                 <p>Product # {product._id}</p>
               </div>
-              <div className="detailsBlock-2">
+              {/* <div className="detailsBlock-2">
                 <Rating {...options} />
                 <span className="detailsBlock-2-span">
                   {" "}
                   ({product.numOfReviews} Reviews)
                 </span>
-              </div>
-              <div className="detailsBlock-3">
+              </div> */}
+              {/* <div className="detailsBlock-3">
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
@@ -155,19 +155,19 @@ const ProductDetails = ({ match }) => {
                     {product.Stock < 1 ? "OutOfStock" : "InStock"}
                   </b>
                 </p>
-              </div>
+              </div> */}
 
               <div className="detailsBlock-4">
                 Description : <p>{product.description}</p>
               </div>
 
-              <button onClick={submitReviewToggle} className="submitReview">
+              {/* <button onClick={submitReviewToggle} className="submitReview">
                 Submit Review
-              </button>
+              </button> */}
             </div>
           </div>
 
-          <h3 className="reviewsHeading">REVIEWS</h3>
+          {/* <h3 className="reviewsHeading">REVIEWS</h3>
 
           <Dialog
             aria-labelledby="simple-dialog-title"
@@ -209,7 +209,7 @@ const ProductDetails = ({ match }) => {
             </div>
           ) : (
             <p className="noReviews">No Reviews Yet</p>
-          )}
+          )} */}
         </Fragment>
       )}
     </Fragment>

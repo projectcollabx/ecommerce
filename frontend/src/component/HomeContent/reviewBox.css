@@ -1,0 +1,23 @@
+.reviewBoxContent img{
+  height: 12rem;
+  width: 12rem;
+
+}
+
+.reviewBox{
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 23px;
+  padding: 23px;
+  /* border: 2px solid green; */
+  height: 250px;
+  width: 600px;
+  box-shadow: 4px 6px 15px ;
+
+}
+
+.reviewParent
+{
+  margin-left: 23px;
+  margin-top: 20px;
+}

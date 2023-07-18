@@ -1,9 +1,22 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import "./Search.css";
 
-const Search = ({ history }) => {
+const Search = () => {
   const [keyword, setKeyword] = useState("");
+  const history = useHistory();
+
+  useEffect(() => {
+    const currentPath = history.location.pathname;
+    const pathParts = currentPath.split("/");
+    const lastPathPart = pathParts[pathParts.length - 1];
+
+    // Update the search box with the last path part if it is not equal to "products"
+    if (lastPathPart !== "products") {
+      setKeyword(lastPathPart);
+    }
+  }, [history]);
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -21,6 +34,7 @@ const Search = ({ history }) => {
         <input
           type="text"
           placeholder="Search a Product ..."
+          value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
         <input type="submit" value="Search" />

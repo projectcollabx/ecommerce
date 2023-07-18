@@ -1,54 +1,15 @@
-// import React from "react";
-// import { ReactNavbar } from "overlay-navbar";
-// import logo from "../../../images/logo.png";
-
-// const options = {
-//   burgerColorHover: "#eb4034",
-//   logo,
-//   logoWidth: "20vmax",
-//   navColor1: "white",
-//   logoHoverSize: "10px",
-//   logoHoverColor: "#eb4034",
-//   link1Text: "Home",
-//   link2Text: "Products",
-//   link3Text: "Contact",
-//   link4Text: "About",
-//   link1Url: "/",
-//   link2Url: "/products",
-//   link3Url: "/contact",
-//   link4Url: "/about",
-//   link1Size: "1.3vmax",
-//   link1Color: "rgba(35, 35, 35,0.8)",
-//   nav1justifyContent: "flex-end",
-//   nav2justifyContent: "flex-end",
-//   nav3justifyContent: "flex-start",
-//   nav4justifyContent: "flex-start",
-//   link1ColorHover: "#eb4034",
-//   link1Margin: "1vmax",
-//   profileIconUrl: "/login",
-//   profileIconColor: "rgba(35, 35, 35,0.8)",
-//   searchIconColor: "rgba(35, 35, 35,0.8)",
-//   cartIconColor: "rgba(35, 35, 35,0.8)",
-//   profileIconColorHover: "#eb4034",
-//   searchIconColorHover: "#eb4034",
-//   cartIconColorHover: "#eb4034",
-//   cartIconMargin: "1vmax",
-// };
-
-// const Header = () => {
-//   return <ReactNavbar {...options} />;
-// };
-
-// export default Header;
-
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../../images/a&s_logo.png";
 
 export default function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-black bg-black">
       <div className="container-fluid">
-        {/* <Link className = "navbar-brand" to = "/">Navbar</Link> */}
+        <div className="logo-name">
+          <img src={logo} alt="Logo" className="logo" />
+          <p>A & S Ventures</p>
+        </div>
         <button
           className="navbar-toggler bg-light"
           type="button"
@@ -61,7 +22,7 @@ export default function Header() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
                 Home
@@ -77,15 +38,28 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/Contact"
-                >
-                  Contact
-                </Link>
-              </li>
+              {/* <Link
+                className="nav-link dropdown-toggle"
+                to="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Contact
+              </Link> */}
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <Link className="dropdown-item" to="/Contact">
+                    Contact 1
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/Contact">
+                    Contact 2
+                  </Link>
+                </li>
+              </ul>
             </li>
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/About">
